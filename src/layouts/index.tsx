@@ -1,5 +1,6 @@
+import { css } from '@emotion/css';
 import { history } from '@umijs/max';
-import { Dropdown, Tabs } from 'antd';
+import { ConfigProvider, Dropdown, Tabs } from 'antd';
 import type { ItemType, MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback, useMemo } from 'react';
 import { Inspector } from 'react-dev-inspector';
@@ -87,7 +88,13 @@ const KeepAliveLayout = () => {
         key: tab.routePath,
         label: renderTabTitle(tab),
         children: (
-          <div key={tab.key} style={{ height: 'calc(100vh - 112px)', overflow: 'auto' }}>
+          <div
+            key={tab.key}
+            style={{
+              height: 'calc(100vh - 112px - 100px)',
+              overflow: 'auto',
+            }}
+          >
             {tab.children}
           </div>
         ),
@@ -126,6 +133,16 @@ const KeepAliveLayout = () => {
     [closeTab, closeOtherTab, refreshTab, onHidden, onShow],
   );
 
+  const { getPrefixCls } = React.useContext(ConfigProvider.ConfigContext);
+  const prefixCls = getPrefixCls('');
+
+  // 创建样式名
+  const className = css`
+    .${prefixCls}-tabs-nav {
+      margin: 0;
+    }
+  `;
+
   return (
     <InspectorWrapper
       keys={['control', 'shift', 'command', 'c']} // default keys
@@ -136,7 +153,7 @@ const KeepAliveLayout = () => {
           items={tabItems}
           activeKey={activeTabRoutePath}
           onChange={onTabsChange}
-          className="keep-alive-tabs"
+          className={className}
           hideAdd
           animated={false}
           onEdit={onTabEdit}
