@@ -1,7 +1,7 @@
 // https://umijs.org/config/
 import { defineConfig } from '@umijs/max';
 import { join } from 'path';
-import defaultSettings from './defaultSettings';
+import defaultSettings, { QIAN_KUN_APP_NAME, QIAN_KUN_APP_TITLE } from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 
@@ -89,10 +89,10 @@ export default defineConfig({
    * @description 将项目中的 moment 替换为 dayjs
    * @doc https://umijs.org/docs/max/moment2dayjs
    */
-  moment2dayjs: {
-    preset: 'antd',
-    plugins: ['duration'],
-  },
+  // moment2dayjs: {
+  //   preset: 'antd',
+  //   plugins: ['duration'],
+  // },
   /**
    * @name 国际化插件
    * @doc https://umijs.org/docs/max/i18n
@@ -155,4 +155,25 @@ export default defineConfig({
     strategy: 'normal',
   },
   requestRecord: {},
+
+  ...(QIAN_KUN_APP_NAME
+    ? {
+        title: QIAN_KUN_APP_TITLE,
+        base: `/${QIAN_KUN_APP_NAME}/`,
+        publicPath: `/${QIAN_KUN_APP_NAME}/`,
+        headScripts: [
+          // 解决首次加载时白屏的问题
+          { src: `/${QIAN_KUN_APP_NAME}/scripts/loading.js`, async: true },
+        ],
+        history: { type: 'browser' },
+        antd: {
+          configProvider: {
+            prefixCls: `${QIAN_KUN_APP_NAME}`,
+          },
+        },
+        qiankun: {
+          slave: {},
+        },
+      }
+    : {}),
 });
