@@ -139,7 +139,7 @@ const KeepAliveLayout = () => {
   // 创建样式名
   const className = css`
     .${prefixCls}-tabs-nav {
-      margin: 0;
+      margin: 0 !important;
     }
   `;
 
