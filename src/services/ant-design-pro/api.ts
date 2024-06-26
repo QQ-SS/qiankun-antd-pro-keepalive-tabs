@@ -61,7 +61,7 @@ export async function rule(
         name: 'TradeCode 99',
         owner: '曲丽丽',
         desc: '这是一段描述',
-        callNo: 503,
+        callNo: 1503,
         status: '0',
         updatedAt: '2022-12-06T05:00:57.040Z',
         createdAt: '2022-12-06T05:00:57.040Z',
@@ -333,12 +333,12 @@ export async function rule(
         createdAt: '2022-12-06T05:00:57.040Z',
         progress: 20,
       },
-    ],
+    ] as API.RuleListItem[],
     total: 100,
     success: true,
     pageSize: 20,
     current: 1,
-  } as any;
+  };
 }
 
 /** 新建规则 PUT /api/rule */

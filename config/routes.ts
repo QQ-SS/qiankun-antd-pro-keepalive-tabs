@@ -52,6 +52,12 @@ export default [
     component: './TableList',
   },
   {
+    name: 'list.protable',
+    icon: 'table',
+    path: '/list/protable',
+    component: './TableList/protable',
+  },
+  {
     name: 'list.detail',
     icon: 'table',
     path: '/list/detail/:id',

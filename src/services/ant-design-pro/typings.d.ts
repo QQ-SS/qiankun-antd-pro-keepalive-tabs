@@ -43,7 +43,7 @@ declare namespace API {
     owner?: string;
     desc?: string;
     callNo?: number;
-    status?: number;
+    status?: string;
     updatedAt?: string;
     createdAt?: string;
     progress?: number;
