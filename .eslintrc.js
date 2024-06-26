@@ -5,4 +5,8 @@ module.exports = {
     REACT_APP_ENV: true,
     API_ENV: true,
   },
+  rules: {
+    '@typescript-eslint/no-shadow': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
+  },
 };

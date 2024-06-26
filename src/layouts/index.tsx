@@ -72,7 +72,7 @@ const KeepAliveLayout = () => {
           menu={{ items: menuItems, onClick: (e) => menuClick(e, tab) }}
           trigger={['contextMenu']}
         >
-          <div style={{ margin: '-12px 0', padding: '12px 0' }}>
+          <div style={{ margin: '-12px 0', padding: '12px 0', display: 'flex', gap: 6 }}>
             {tab.icon}
             {tab.title}
           </div>
