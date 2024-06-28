@@ -5,7 +5,8 @@ import type { ItemType, MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback, useMemo } from 'react';
 import { Inspector } from 'react-dev-inspector';
 import { KeepAliveTabContext } from './context';
-import { KeepAliveTab, useKeepAliveTabs } from './useKeepAliveTabs';
+import type { KeepAliveTab } from './useKeepAliveTabs';
+import { useKeepAliveTabs } from './useKeepAliveTabs';
 
 const InspectorWrapper = process.env.NODE_ENV === 'development' ? Inspector : React.Fragment;
 enum OperationType {
@@ -72,7 +73,7 @@ const KeepAliveLayout = () => {
           menu={{ items: menuItems, onClick: (e) => menuClick(e, tab) }}
           trigger={['contextMenu']}
         >
-          <div style={{ margin: '-12px 0', padding: '12px 0' }}>
+          <div style={{ margin: '-12px 0', padding: '12px 0', display: 'flex', gap: 6 }}>
             {tab.icon}
             {tab.title}
           </div>

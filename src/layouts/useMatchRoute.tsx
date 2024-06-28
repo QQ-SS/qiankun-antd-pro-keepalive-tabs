@@ -1,9 +1,17 @@
-import { IRoute, history, useAppData, useIntl, useLocation, useOutlet, useSelectedRoutes } from '@umijs/max';
+import type { IRoute } from '@umijs/max';
+import {
+  history,
+  useAppData,
+  useIntl,
+  useLocation,
+  useOutlet,
+  useSelectedRoutes,
+} from '@umijs/max';
 import { useEffect, useState } from 'react';
 
 type CustomIRoute = IRoute & {
   name: string;
-}
+};
 
 interface MatchRouteType {
   title: string;
@@ -44,11 +52,10 @@ export function useMatchRoute() {
     names.push(lastRoute.route.name);
 
     return formatMessage({ id: names.join('.') });
-  }
+  };
 
   // 监听pathname变了，说明路由有变化，重新匹配，返回新路由信息
   useEffect(() => {
-
     // 获取当前匹配的路由
     const lastRoute = selectedRoutes.at(-1);
 
@@ -70,11 +77,9 @@ export function useMatchRoute() {
       pathname,
       children,
       routePath: lastRoute.route.path,
-      icon: (lastRoute.route as any).icon,  // icon是拓展出来的字段
+      icon: (lastRoute.route as any).icon, // icon是拓展出来的字段
     });
-
-  }, [pathname])
-
+  }, [pathname]);
 
   return matchRoute;
 }

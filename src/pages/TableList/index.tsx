@@ -47,7 +47,7 @@ const handleUpdate = async (fields: FormValueType) => {
     await updateRule({
       name: fields.name,
       desc: fields.desc,
-      key: fields.key,
+      id: fields.id,
     });
     hide();
 
@@ -71,7 +71,7 @@ const handleRemove = async (selectedRows: API.RuleListItem[]) => {
   if (!selectedRows) return true;
   try {
     await removeRule({
-      key: selectedRows.map((row) => row.key),
+      key: selectedRows.map((row) => row.id),
     });
     hide();
     message.success('Deleted successfully and will refresh soon');
@@ -121,7 +121,7 @@ const TableList: React.FC = () => {
         return (
           <a
             onClick={() => {
-              history.push(`/list/detail/${entity.key}`);
+              history.push(`/list/detail/${entity.id}`);
             }}
           >
             {dom}
@@ -248,7 +248,7 @@ const TableList: React.FC = () => {
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={{
           labelWidth: 120,
         }}
