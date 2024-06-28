@@ -1,3 +1,5 @@
+import type { DefaultOptionType } from 'antd/es/select';
+
 export const MAX_INT32 = 2147483647;
 
 /**
@@ -20,11 +22,11 @@ export function toFixed(num: number | string, len: number, groupSeparator?: stri
   return str;
 }
 
-export const transformOption = (options: Record<string, any>) => {
-  const result = [];
-  for (const key in options) {
-    if (options.hasOwnProperty(key)) {
-      const item = options[key];
+export const transformOption = (obj: Record<string, any>) => {
+  const result: DefaultOptionType[] = [];
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const item = obj[key];
       result.push({ label: key, value: item });
     }
   }

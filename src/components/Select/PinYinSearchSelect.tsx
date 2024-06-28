@@ -1,7 +1,8 @@
 import { AutoComplete, Select } from 'antd';
 import type { DefaultOptionType, SelectProps } from 'antd/es/select';
 import Pinyin from 'pinyin-match';
-import React, { ReactNode, useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Highlighter } from './PinYinHighlighter';
 
 export type OptionType = DefaultOptionType & {

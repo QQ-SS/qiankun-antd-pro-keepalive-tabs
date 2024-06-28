@@ -5,7 +5,8 @@ import type { ItemType, MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback, useMemo } from 'react';
 import { Inspector } from 'react-dev-inspector';
 import { KeepAliveTabContext } from './context';
-import { KeepAliveTab, useKeepAliveTabs } from './useKeepAliveTabs';
+import type { KeepAliveTab } from './useKeepAliveTabs';
+import { useKeepAliveTabs } from './useKeepAliveTabs';
 
 const InspectorWrapper = process.env.NODE_ENV === 'development' ? Inspector : React.Fragment;
 enum OperationType {
