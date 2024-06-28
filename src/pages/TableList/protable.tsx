@@ -1,44 +1,73 @@
+import type { ProTableEventType } from '@/components/ProTable/ProTable';
 import ProTable from '@/components/ProTable/ProTable';
+import SheetJSText from '@/components/ProTable/SheetJSText';
 import { rule } from '@/services/ant-design-pro/api';
-import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType } from '@ant-design/pro-components';
+import type { ActionType, ProFormInstance } from '@ant-design/pro-components';
 import { PageContainer } from '@ant-design/pro-components';
 import { FormattedMessage, history, useIntl } from '@umijs/max';
+import { useEventEmitter } from 'ahooks';
 import { Button } from 'antd';
 import React, { useRef } from 'react';
 
 const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
+  const formRef = useRef<ProFormInstance>();
 
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
   const intl = useIntl();
+  const eventBus = useEventEmitter<ProTableEventType>();
+  eventBus.useSubscription((e) => {
+    console.log(e);
+  });
 
   return (
     <PageContainer>
       <ProTable
+        eventBus={eventBus}
         headerTitle={intl.formatMessage({
           id: 'pages.searchTable.title',
           defaultMessage: 'Enquiry form',
         })}
+        formRef={formRef}
         actionRef={actionRef}
-        rowKey="key"
         search={{
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button type="primary" key="primary">
-            <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
+          <Button
+            type="primary"
+            key="primary"
+            size="small"
+            onClick={() => {
+              formRef.current?.setFieldValue('name', '123');
+              actionRef.current?.reload();
+            }}
+          >
+            刷新
           </Button>,
         ]}
+        // toolBarRender={false}
         request={async (params, sort, filter) => {
-          console.log(params, sort, filter);
-
-          return await rule(params, sort);
+          const result = await rule(params, sort);
+          // console.log(params, sort, filter, result);
+          return result;
         }}
         columns={[
+          {
+            search: false,
+            title: '测试',
+            dataIndex: 'id',
+            render: () => {
+              return (
+                <SheetJSText icon="测" iconColor="red" description="测试描述">
+                  1
+                </SheetJSText>
+              );
+            },
+          },
           {
             title: (
               <FormattedMessage
@@ -52,7 +81,7 @@ const TableList: React.FC = () => {
               return (
                 <a
                   onClick={() => {
-                    history.push(`/list/detail/${entity.key}`);
+                    history.push(`/list/detail/${entity.id}`);
                   }}
                 >
                   {dom}
@@ -68,14 +97,22 @@ const TableList: React.FC = () => {
             valueType: 'textarea',
           },
           {
+            search: false,
             title: '服务调用次数',
-            dataIndex: 'callNo',
-            valueType: 'moneyRange',
-          },
-          {
-            title: '服务调用次数',
-            dataIndex: 'callNo',
-            valueType: 'numberRange',
+            children: [
+              {
+                title: '服务调用次数',
+                dataIndex: 'callNo',
+                key: 'callNo_0',
+                valueType: 'moneyRange',
+              },
+              {
+                title: '服务调用次数',
+                dataIndex: 'callNo',
+                key: 'callNo_2',
+                valueType: 'moneyRange',
+              },
+            ],
           },
           {
             title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status" />,

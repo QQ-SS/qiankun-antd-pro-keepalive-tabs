@@ -1,7 +1,7 @@
 import { ProLayoutProps } from '@ant-design/pro-components';
 
 export const QIAN_KUN_APP_NAME = 'weworkconsole';
-export const QIAN_KUN_APP_TITLE = '幼幼家园管理后台';
+export const QIAN_KUN_APP_TITLE = '管理后台';
 export const QIAN_KUN_APP_PRIMARY_COLOR = '#09BB07';
 
 /**
