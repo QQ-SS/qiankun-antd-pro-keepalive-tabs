@@ -184,7 +184,7 @@ function ProTable<
 
   // 导出支持
   const { exportTable, downloadWorkBook } = useTableExport(`protable_${persistenceKey}`);
-  const [modal, contextHolder] = Modal.useModal();
+  const [modal, modalContextHolder] = Modal.useModal();
   const selectedRowsRef = useRef<{
     selectedRowKeys?: (string | number)[];
     selectedRows?: DataSource[];
@@ -449,6 +449,13 @@ function ProTable<
       }}
     >
       <AntProTable<DataSource, Params, VALUE_TYPE>
+        rowKey="id"
+        defaultSize="small"
+        ghost
+        {...restProps}
+        id={`protable_${persistenceKey}`}
+        actionRef={actionRef}
+        formRef={formRef}
         columns={warpColumns(propColumns)}
         search={
           propSearch === false
@@ -469,11 +476,6 @@ function ProTable<
                 ...propSearch,
               }
         }
-        rowKey="id"
-        {...restProps}
-        id={`protable_${persistenceKey}`}
-        actionRef={actionRef}
-        formRef={formRef}
         pagination={
           typeof propPagination === 'boolean'
             ? propPagination
@@ -692,7 +694,7 @@ function ProTable<
         }}
         onDataSourceChange={onDataSourceChange}
       />
-      {contextHolder}
+      {modalContextHolder}
     </ProProvider.Provider>
   );
 }
